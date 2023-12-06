@@ -18,8 +18,8 @@ app.post('/lead', async ( req, res ) => {
     console.log({ table });
 
     try {
-        // await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', 'Gracias por su consulta al Estudio Kohon, en los próximos días nos estaremos comunicando con usted. Saludos'));
-        // await transporter.sendMail(configurationToSendEmail('gas.balatti@gmail.com', 'Nuevo lead', 'Informacion del lead', table));
+        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', 'Gracias por su consulta al Estudio Kohon, en los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ ir ver todos nuestros proyectos. Saludos'));
+        await transporter.sendMail(configurationToSendEmail('gas.balatti@gmail.com', 'Nuevo lead', 'Informacion del lead', table));
         console.log('Mails sent...');
         res.status(200).json({ message: 'Solicitud recibida correctamente' });
         
