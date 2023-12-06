@@ -1,9 +1,11 @@
 import React from 'react';
 import { Box } from "@mui/material";
 
-import backgroundImage from '../../assets/imgs/rio.jpeg';
+import backgroundImage from '../../assets/imgs/buildings/rio.jpeg';
 import { BackgroundImage } from './BackgroundImage/BackgroundImage';
-import { quote1, quote2, quote3 } from '../../assets/';
+import quote1 from '../../assets/imgs/buyers/testimonio1.webp';
+import quote2 from '../../assets/imgs/buyers/testimonio2.webp';
+import quote3 from '../../assets/imgs/buyers/testimonio3.webp';
 import { CardQuotes } from './CardQuotes/CardQuotes';
 
 const quotes = [

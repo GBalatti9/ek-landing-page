@@ -1,5 +1,14 @@
 import { Box } from "@mui/material"
-import { image1, image2, image3, image4, image5, image6, image7, image8, image9 } from "../../../assets/index";
+import image1 from '../../../assets/imgs/buildings/local.webp'
+import image2 from '../../../assets/imgs/buildings/paseo-bolivar-proyecto.webp'
+import image3 from '../../../assets/imgs/buildings/delaflor.webp'
+import image4 from '../../../assets/imgs/buildings/fachada-1.webp'
+import image5 from '../../../assets/imgs/buildings/galer_2.webp'
+import image6 from '../../../assets/imgs/buildings/render2.webp'
+import image7 from '../../../assets/imgs/buildings/render6.webp'
+import image8 from '../../../assets/imgs/buildings/render7.webp'
+import image9 from '../../../assets/imgs/buildings/terrazas-4.jpg'
+
 import { ImageListComponent } from "./ImageListComponent";
 
 
