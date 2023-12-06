@@ -13,7 +13,7 @@ export const FirstSectionApp = () => {
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100vh',
+                    height: '100%',
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
@@ -31,7 +31,7 @@ export const FirstSectionApp = () => {
                     height: '100vh',
                 }}
             >
-                <Grid container spacing={2}>
+                <Grid container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Grid item xs={12} md={6}>
                         <TitleApp />
                     </Grid>

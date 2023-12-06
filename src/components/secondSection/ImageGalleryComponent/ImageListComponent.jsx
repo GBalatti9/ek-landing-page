@@ -13,7 +13,7 @@ export const ImageListComponent = ({ itemsData }) => {
                 <ImageItem data = { itemsData } handleImageClick = { handleImageClick } />
             </ImageList>
 
-            <DialogItem open = { open } onClose = { handleCloseDialog } selectedImage = { selectedImage } />
+            <DialogItem open = { open } handleCloseDialog = { handleCloseDialog } selectedImage = { selectedImage } />
         </>
     )
 }
