@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 
 import backgroundImage from '../../assets/imgs/rio.jpeg';
 import { BackgroundImage } from './BackgroundImage/BackgroundImage';
-import { quote1, quote2, quote3 } from '../../assets/imgs';
+import { quote1, quote2, quote3 } from '../../assets/';
 import { CardQuotes } from './CardQuotes/CardQuotes';
 
 const quotes = [

@@ -29,8 +29,8 @@ export const TitleApp = () => {
                         md: 2
                     },
                     whiteSpace: {
-                        xs: 'normal',  // En pantallas pequeñas, permite que el texto fluya normalmente
-                        md: 'pre-line', // En pantallas md, utiliza saltos de línea
+                        xs: 'normal',  
+                        md: 'pre-line',
                     },
                 }}>
         
