@@ -10,6 +10,7 @@ export const useForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setShowDialog(true);
         try {
             const response = await fetch('https://ek-landing-page.onrender.com/lead', {
                 method: 'POST',
@@ -20,8 +21,7 @@ export const useForm = () => {
             })
             console.log( response );
 
-            setShowDialog(true);
-            
+
             if (response.ok) {
                 const jsonResponse = await response.json(); // Parsea la respuesta JSON
                 console.log("Correo enviado correctamente:", jsonResponse.message);
