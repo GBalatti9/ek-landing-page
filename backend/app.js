@@ -9,6 +9,10 @@ app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
 app.use(cors());
 
+app.get('/', ( req, res ) => {
+    res.send('Everything is working...')
+})
+
 app.post('/lead', async ( req, res ) => {
     console.log(req.body);
     const { formState } = req.body;
