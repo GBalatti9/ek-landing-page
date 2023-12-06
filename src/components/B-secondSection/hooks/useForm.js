@@ -20,11 +20,12 @@ export const useForm = () => {
             })
             console.log( response );
 
+            setShowDialog(true);
+            
             if (response.ok) {
                 const jsonResponse = await response.json(); // Parsea la respuesta JSON
                 console.log("Correo enviado correctamente:", jsonResponse.message);
 
-                setShowDialog(true);
             }
         } catch (error) {
             console.log("ERROR", error);
