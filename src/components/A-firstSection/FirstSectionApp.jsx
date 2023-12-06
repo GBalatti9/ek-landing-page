@@ -2,7 +2,7 @@ import { Box, Container, Grid } from "@mui/material";
 import { VideoComponent } from "./VideoComponent/VideoComponent";
 import { TitleApp } from "./TitleAppComponent/TitleApp";
 
-import backgroundImage from '../../assets/imgs/buildings/paseo-bolivar-proyecto.webp';
+import backgroundImage from '../../assets/imgs/buy-buildings/paseo-bolivar-proyecto.webp';
 
 export const FirstSectionApp = () => {
     return (
