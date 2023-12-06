@@ -13,7 +13,7 @@ app.get('/', ( req, res ) => {
     res.send('Everything is working...')
 })
 
-app.post('https://ek-landing-page.onrender.com/lead', async ( req, res ) => {
+app.post('/lead', async ( req, res ) => {
     console.log(req.body);
     const { formState } = req.body;
     const { mail } = formState;
