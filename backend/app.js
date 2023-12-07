@@ -18,13 +18,19 @@ app.post('/lead', async ( req, res ) => {
     const { formState } = req.body;
     const { mail } = formState;
 
+    const { nombreCompleto } = formState;
+    const nombre = nombreCompleto.split(' ')[0];
+    console.log({ nombre });
+
     const table = objectToHTMLTable(formState)
-    console.log({ table });
+    console.log({ formState });
 
     try {
-        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>.
-        <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos</p>.
-        <p>Saludos!</p>`));
+        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
+        <p>Hola ${ nombre } </p>
+        <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
+        <p>Saludos cordiales.</p>
+        <p>El equipo del Estudio Kohon.</p>`));
         await transporter.sendMail(configurationToSendEmail('gas.balatti@gmail.com', 'Nuevo lead', 'Informacion del lead', table));
         console.log('Mails sent...');
         res.status(200).json({ message: 'Solicitud recibida correctamente' });
