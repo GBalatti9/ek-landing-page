@@ -48,15 +48,16 @@ app.post('/lead', async (req, res) => {
     };
     
     const { date, fullName, email, phoneNumber, flatType, flatZone } = columnNames;
+    console.log({ columnNames });
     const name = fullName.split(' ')[0];
 
     try {
 
-        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
-        <p>Hola ${ name } </p>
-        <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
-        <p>Saludos cordiales.</p>
-        <p>El equipo del Estudio Kohon.</p>`));
+        // await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
+        // <p>Hola ${ name } </p>
+        // <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
+        // <p>Saludos cordiales.</p>
+        // <p>El equipo del Estudio Kohon.</p>`));
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.SHEET_ID,
@@ -67,6 +68,7 @@ app.post('/lead', async (req, res) => {
                 values: [[ date, fullName, email, phoneNumber, flatType, flatZone ]]
             }
         });
+        console.log('Informacion cargada correctamente');
         res.json({ message: 'Se agregó la información de manera correcta' })
     } catch (error) {
         console.error('Error al enviar datos de la hoja de cálculo:', error);

@@ -9,7 +9,7 @@ export const useForm = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        // http://localhost:3000/lead
         setShowDialog(true);
         try {
             const response = await fetch('https://ek-landing-page.onrender.com/lead', {
