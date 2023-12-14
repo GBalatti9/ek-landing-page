@@ -17,7 +17,7 @@ const client = new google.auth.JWT(process.env.CLIENT_EMAIL, null, process.env.P
 
 const sheets = google.sheets({ version: 'v4', auth: client });
 
-app.get('/', async (req, res) => {
+app.get('/prueba', async (req, res) => {
     try {
         const values = await sheets.spreadsheets.values.get({
             spreadsheetId: process.env.SHEET_ID,
