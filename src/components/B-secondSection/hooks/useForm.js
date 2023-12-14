@@ -1,4 +1,3 @@
-'https://ek-landing-page.onrender.com/lead';
 import { useRef, useState } from "react";
 
 const initialValue = {}
@@ -13,7 +12,7 @@ export const useForm = () => {
 
         setShowDialog(true);
         try {
-            const response = await fetch('http://localhost:3000/lead', {
+            const response = await fetch('https://ek-landing-page.onrender.com/lead', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
