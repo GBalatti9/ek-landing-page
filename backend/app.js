@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { google } = require('googleapis');
 const fs = require('fs');
-const key = require('./credentials.json');
+// const key = require('./credentials.json');
 require('dotenv').config();
 
 const app = express();
@@ -13,7 +13,12 @@ app.use(cors());
 
 const { transporter, configurationToSendEmail, objectToHTMLTable } = require('./helpers/mailer');
 
-const client = new google.auth.JWT(key.client_email, null, key.private_key, ['https://www.googleapis.com/auth/spreadsheets']);
+const key = {
+    CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+    PRIVATE_KEY: process.env.PRIVATE_KEY
+}
+
+const client = new google.auth.JWT(key.CLIENT_EMAIL, null, key.PRIVATE_KEY, ['https://www.googleapis.com/auth/spreadsheets']);
 
 const sheets = google.sheets({ version: 'v4', auth: client });
 
