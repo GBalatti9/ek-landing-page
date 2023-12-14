@@ -13,12 +13,7 @@ app.use(cors());
 
 const { transporter, configurationToSendEmail, objectToHTMLTable } = require('./helpers/mailer');
 
-const key = {
-    CLIENT_EMAIL: process.env.CLIENT_EMAIL,
-    PRIVATE_KEY: process.env.PRIVATE_KEY
-}
-
-const client = new google.auth.JWT(key.CLIENT_EMAIL, null, key.PRIVATE_KEY, ['https://www.googleapis.com/auth/spreadsheets']);
+const client = new google.auth.JWT(process.env.CLIENT_EMAIL, null, process.env.PRIVATE_KEY, ['https://www.googleapis.com/auth/spreadsheets']);
 
 const sheets = google.sheets({ version: 'v4', auth: client });
 
