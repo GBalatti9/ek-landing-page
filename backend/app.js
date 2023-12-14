@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { google } = require('googleapis');
 const fs = require('fs');
-const key = require('./secrets.json');
+const key = require('./credentials.json');
 require('dotenv').config();
 
 const app = express();
