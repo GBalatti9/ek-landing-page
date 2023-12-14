@@ -1,3 +1,4 @@
+'https://ek-landing-page.onrender.com/lead';
 import { useRef, useState } from "react";
 
 const initialValue = {}
@@ -5,14 +6,14 @@ const initialValue = {}
 export const useForm = () => {
     
     const [ formState, setFormState ] = useState( initialValue );
-    const [ showDialog, setShowDialog ] = useState(false);
+    const [ showDialog, setShowDialog ] = useState( false );
     
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setShowDialog(true);
         try {
-            const response = await fetch('https://ek-landing-page.onrender.com/lead', {
+            const response = await fetch('http://localhost:3000/lead', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
