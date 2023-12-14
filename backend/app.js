@@ -1,47 +1,68 @@
 const express = require('express');
 const cors = require('cors');
-
-const { transporter, configurationToSendEmail, objectToHTMLTable } = require('./helpers/mailer');
+const { google } = require('googleapis');
+const fs = require('fs');
+const key = require('./secrets.json');
 
 const app = express();
 
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-app.get('/', ( req, res ) => {
-    res.send('Everything is working...')
-})
+const SHEET_ID = '1eV-hPb2LXeLGdrYhFU5Ag38TRi6fUbxzy6HSo60O5Vo';
 
-app.post('/lead', async ( req, res ) => {
-    console.log(req.body);
-    const { formState } = req.body;
-    const { mail } = formState;
+const client = new google.auth.JWT(key.client_email, null, key.private_key, ['https://www.googleapis.com/auth/spreadsheets']);
 
-    const { nombreCompleto } = formState;
-    const nombre = nombreCompleto.split(' ')[0];
-    console.log({ nombre });
+const sheets = google.sheets({ version: 'v4', auth: client });
 
-    const table = objectToHTMLTable(formState)
-    console.log({ formState });
+app.get('/', async (req, res) => {
+    try {        
+        const values = await sheets.spreadsheets.values.get({
+            spreadsheetId: SHEET_ID,
+            range: 'Data'
+        });
+    
+        res.send(values.data);
+    } catch (error) {
+        console.error('Error al obtener datos de la hoja de cálculo:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+app.post('/lead', async (req, res) => {
+
+    // const valuesFromBody = 
+    const { nombreCompleto, mail, telefono, tipoDepartamento, zonaDepartamento } = req.body.formState;
+    const columnNames = {
+        fullName: nombreCompleto || '',
+        email: mail || '',
+        phoneNumber: telefono || '',
+        flatType: tipoDepartamento || '',
+        flatZone: zonaDepartamento || '',
+    };
+
+    const { fullName, email, phoneNumber, flatType, flatZone } = columnNames;
 
     try {
-        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
-        <p>Hola ${ nombre } </p>
-        <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
-        <p>Saludos cordiales.</p>
-        <p>El equipo del Estudio Kohon.</p>`));
-        await transporter.sendMail(configurationToSendEmail('gas.balatti@gmail.com', 'Nuevo lead', 'Informacion del lead', table));
-        console.log('Mails sent...');
-        res.status(200).json({ message: 'Solicitud recibida correctamente' });
-        
+        await sheets.spreadsheets.values.append({
+            spreadsheetId: SHEET_ID,
+            range: 'Data!A3:E',
+            insertDataOption: 'INSERT_ROWS',
+            valueInputOption: 'RAW',
+            requestBody: {
+                values: [[ fullName, email, phoneNumber, flatType, flatZone ]]
+            }
+        });
+        res.json({ message: 'Se agregó la información de manera correcta' })
     } catch (error) {
-        console.log("Error to send mail", error);
+        console.error('Error al enviar datos de la hoja de cálculo:', error);
+        res.status(500).send('Error interno del servidor');
     }
-} )
+})
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.listen( process.env.PORT || 3000, () => {
+app.listen( port, () => {
     console.log(`App running on ${port}`);
-} )
+})
