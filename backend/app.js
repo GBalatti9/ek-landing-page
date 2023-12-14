@@ -47,7 +47,7 @@ app.post('/lead', async (req, res) => {
         flatZone: zonaDepartamento || '',
     };
     
-    const { fullName, email, phoneNumber, flatType, flatZone } = columnNames;
+    const { date, fullName, email, phoneNumber, flatType, flatZone } = columnNames;
     const name = fullName.split(' ')[0];
 
     try {
@@ -64,7 +64,7 @@ app.post('/lead', async (req, res) => {
             insertDataOption: 'INSERT_ROWS',
             valueInputOption: 'RAW',
             requestBody: {
-                values: [[ fullName, email, phoneNumber, flatType, flatZone ]]
+                values: [[ date, fullName, email, phoneNumber, flatType, flatZone ]]
             }
         });
         res.json({ message: 'Se agregó la información de manera correcta' })
