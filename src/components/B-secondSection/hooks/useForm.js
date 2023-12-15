@@ -9,10 +9,10 @@ export const useForm = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // http://localhost:3000/lead
+        // https://ek-landing-page.onrender.com/lead
         setShowDialog(true);
         try {
-            const response = await fetch('https://ek-landing-page.onrender.com/lead', {
+            const response = await fetch('http://localhost:3000/lead', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -27,6 +27,7 @@ export const useForm = () => {
                 console.log("Correo enviado correctamente:", jsonResponse.message);
 
             }
+            console.log({ formState });
         } catch (error) {
             console.log("ERROR", error);
         }
@@ -34,17 +35,20 @@ export const useForm = () => {
     }
     const updateState = (name, value, type) => {
 
-        if (type === 'checkbox') {            
+        if (type === 'checkbox') {    
             setFormState( (prevFormState) => ({
                 ...prevFormState,
-                [name]: [...(prevFormState[name] || []), value],
+                [name]: [...(prevFormState[name] || []), value ],
+            }))
+        } 
+        
+        if (type === 'text') {
+            setFormState(( prevFormState ) => ({
+                ...prevFormState,
+                [name]: value,
             }))
         }
 
-        setFormState(( prevFormState ) => ({
-            ...prevFormState,
-            [name]: value,
-        }))
 
     }
 
@@ -52,8 +56,9 @@ export const useForm = () => {
         setFormState(( prevFormState ) => {
             const foundElement = prevFormState[name];
             if (!foundElement) return prevFormState;
-
+            console.log({ foundElement });
             const newArrWithoutElement = foundElement.filter(( el ) => el !== value);
+            console.log({ newArrWithoutElement });
 
             return{
                 ...prevFormState,
@@ -64,10 +69,13 @@ export const useForm = () => {
 
     const handleChange = ({ target }) => {
         const { name, value, checked, type } = target;
+        console.log({ checked });
 
-        updateState(name, value)
-        if (checked && !checked) {
-            deleteElementFromFormState(name, value);
+        if ( type === 'checkbox' && !checked ) {
+            deleteElementFromFormState( name, value )
+        }
+        else {
+            updateState( name, value, type )
         }
     }
 
