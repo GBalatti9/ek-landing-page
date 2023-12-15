@@ -53,11 +53,11 @@ app.post('/lead', async (req, res) => {
 
     try {
 
-        // await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
-        // <p>Hola ${ name } </p>
-        // <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
-        // <p>Saludos cordiales.</p>
-        // <p>El equipo del Estudio Kohon.</p>`));
+        await transporter.sendMail(configurationToSendEmail(mail, 'Bienvenido', '' ,`<h1>Gracias por su consulta al Estudio Kohon</h1>
+        <p>Hola ${ name } </p>
+        <p>En los próximos días nos estaremos comunicando con usted. Para más información puede ingresar a https://estudiokohon.com/ y ver todos nuestros proyectos.</p>
+        <p>Saludos cordiales.</p>
+        <p>El equipo del Estudio Kohon.</p>`));
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.SHEET_ID,
@@ -69,6 +69,7 @@ app.post('/lead', async (req, res) => {
             }
         });
         console.log('Informacion cargada correctamente');
+        await transporter.sendMail(configurationToSendEmail('gas.balatti@gmail.com', 'Nuevo lead', 'Se agregó la información correctamente al documento: https://docs.google.com/spreadsheets/d/1eV-hPb2LXeLGdrYhFU5Ag38TRi6fUbxzy6HSo60O5Vo/edit#gid=0', ''));
         res.json({ message: 'Se agregó la información de manera correcta' })
     } catch (error) {
         console.error('Error al enviar datos de la hoja de cálculo:', error);
